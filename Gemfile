@@ -73,3 +73,5 @@ gem "groupdate"
 group :production do
   gem "pg"
 end
+
+gem "rollbar", "~> 3.7"

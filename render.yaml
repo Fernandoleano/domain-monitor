@@ -7,7 +7,7 @@ databases:
 services:
   - type: web
     name: domain-monitor
-    env: ruby
+    runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
@@ -17,4 +17,6 @@ services:
           name: domain-monitor-db
           property: connectionString
       - key: RAILS_MASTER_KEY
+        sync: false
+      - key: ROLLBAR_ACCESS_TOKEN
         sync: false

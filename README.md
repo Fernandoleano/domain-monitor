@@ -73,6 +73,31 @@
     ```
     Visit `http://localhost:3000` 🚀
 
+## 🚀 Deployment (Render)
+
+This app is configured for **Render.com**.
+
+### How to Deploy Updates
+
+The deployment is **automated**. To update your live production app:
+
+1.  Make your code changes.
+2.  Commit and Push to GitHub:
+    ```bash
+    git add .
+    git commit -m "New feature"
+    git push origin main
+    ```
+3.  Render will automatically detect the push, run the build script, and deploy the new version.
+
+### Browser Extension (Production)
+
+The extension in this repo is designed to work with your live site.
+
+1.  Use the `domain-monitor-extension-prod.zip` file.
+2.  Load it into Chrome (`chrome://extensions`).
+3.  It will automatically connect to your Render URL.
+
 ## 🧪 How It Works
 
 ### Background Monitoring

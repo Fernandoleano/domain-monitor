@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Check if site is already monitored
     try {
-      const lookupResp = await fetch(`http://localhost:3000/sites/lookup.json?url=${encodeURIComponent(cleanUrl)}`, {
+      const lookupResp = await fetch(`https://domain-monitor-brbh.onrender.com/sites/lookup.json?url=${encodeURIComponent(cleanUrl)}`, {
         method: 'GET',
         headers: { 'Accept': 'application/json' }
       });
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         latencyVal.textContent = `${lookupData.avg_latency}ms`;
         
         // Link
-        historyLink.href = `http://localhost:3000/sites/${site.id}`;
+        historyLink.href = `https://domain-monitor-brbh.onrender.com/sites/${site.id}`;
 
       } else {
         // --- SHOW ADD VIEW ---
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       statusDiv.style.display = 'none';
 
       try {
-        const response = await fetch('http://localhost:3000/sites.json', {
+        const response = await fetch('https://domain-monitor-brbh.onrender.com/sites.json', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

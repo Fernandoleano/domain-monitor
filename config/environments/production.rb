@@ -7,7 +7,7 @@ Rails.application.configure do
   config.enable_reloading = false
 
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
-  config.eager_load = true
+  config.eager_load = false
 
   # Full error reports are disabled.
   config.consider_all_requests_local = false
@@ -50,7 +50,6 @@ Rails.application.configure do
   config.cache_store = :solid_cache_store
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
   config.active_job.queue_adapter = :solid_queue
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -1,0 +1,64 @@
+<nav class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-full flex-shrink-0">
+  <!-- Logo -->
+  <div class="h-16 flex items-center px-6 border-b border-slate-800">
+    <svg class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+    <span class="ml-3 text-xl font-bold text-white tracking-tight">DomainMonitor</span>
+    <% if authenticated? %>
+        <div class="ml-auto">
+            <%= turbo_stream_from Current.user, "notifications" %>
+            <%= turbo_stream_from Current.user, "notifications_bell" %>
+            <%= render "application/notification_bell", user: Current.user %>
+        </div>
+    <% end %>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+    <div class="space-y-1">
+      <%= link_to sites_path, class: "group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition-colors #{'bg-slate-800 text-white' if current_page?(sites_path)}" do %>
+        <svg class="mr-3 h-6 w-6 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+        Dashboard
+      <% end %>
+
+      <%= link_to new_site_path, class: "group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-300 hover:text-white hover:bg-slate-800 transition-colors #{'bg-slate-800 text-white' if current_page?(new_site_path)}" do %>
+        <svg class="mr-3 h-6 w-6 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+        Add Site
+      <% end %>
+    </div>
+  </div>
+
+  <!-- User Menu -->
+  <div class="p-4 border-t border-slate-800 mt-auto">
+    <% if authenticated? %>
+      <div class="flex flex-col items-center mb-6">
+        <% if Current.user.avatar.attached? %>
+          <%= image_tag Current.user.avatar, class: "h-16 w-16 rounded-full object-cover ring-2 ring-indigo-500/50 mb-3 shadow-lg shadow-indigo-500/20" %>
+        <% else %>
+          <div class="h-16 w-16 rounded-full bg-slate-700 flex items-center justify-center text-xl font-bold text-white mb-3 shadow-inner">
+            <%= Current.user.full_name.first.upcase %>
+          </div>
+        <% end %>
+        <div class="text-center">
+          <p class="text-sm font-medium text-white truncate max-w-[180px]"><%= Current.user.full_name %></p>
+          <%= link_to "Profile Settings", profile_path, class: "text-xs text-slate-400 hover:text-white transition-colors mt-1 inline-block" %>
+        </div>
+      </div>
+      <%= button_to session_path, method: :delete, class: "w-full flex items-center justify-center px-4 py-2 border border-slate-600 rounded-md shadow-sm text-sm font-medium text-slate-300 bg-transparent hover:bg-slate-800 hover:text-white transition-all group" do %>
+        <svg class="mr-2 h-5 w-5 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        Log Out
+      <% end %>
+    <% else %>
+      <%= link_to new_session_path, class: "w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-900" do %>
+        Log In
+      <% end %>
+    <% end %>
+  </div>
+</nav>

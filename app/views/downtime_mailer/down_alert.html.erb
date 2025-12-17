@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body style="font-family: sans-serif; background-color: #f8fafc; padding: 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h1 style="color: #ef4444; margin-bottom: 20px;">Site Down Alert</h1>
+      <p style="color: #334155; font-size: 16px; line-height: 1.5;">
+        Hello <%= @user.full_name %>,
+      </p>
+      <p style="color: #334155; font-size: 16px; line-height: 1.5;">
+        We detected that <strong><%= @site.name %></strong> (<a href="<%= @site.url %>" style="color: #4f46e5;"><%= @site.url %></a>) is currently <strong>DOWN</strong>.
+      </p>
+      <p style="color: #334155; font-size: 16px; line-height: 1.5;">
+        The check failed at <%= Time.current.strftime("%H:%M %Z") %>. We will notify you when it comes back up.
+      </p>
+      <div style="margin-top: 30px;">
+        <a href="<%= site_url(@site) %>" style="background-color: #ef4444; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Details</a>
+      </div>
+    </div>
+  </body>
+</html>

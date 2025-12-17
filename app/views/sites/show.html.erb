@@ -1,0 +1,113 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="md:flex md:items-center md:justify-between">
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center">
+        <%= link_to sites_path, class: "mr-4 group" do %>
+          <svg class="h-6 w-6 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        <% end %>
+        <div>
+          <h2 class="text-2xl font-bold leading-7 text-white sm:truncate sm:text-3xl sm:tracking-tight"><%= @site.name %></h2>
+          <p class="text-sm text-indigo-400 mt-1 font-mono"><%= @site.url %></p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 flex md:mt-0 md:ml-4 space-x-3">
+      <%= button_to "Check Now", check_now_site_path(@site), method: :post, class: "inline-flex items-center rounded-md border border-slate-600 bg-slate-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all" %>
+      <%= link_to "Edit", edit_site_path(@site), class: "inline-flex items-center rounded-md border border-slate-600 bg-slate-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all" %>
+       <%= button_to "Delete", site_path(@site), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "inline-flex items-center rounded-md border border-transparent bg-rose-600 text-white px-4 py-2 text-sm font-medium shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-900 transition-all" %>
+    </div>
+  </div>
+
+  <!-- Status Card -->
+  <div class="bg-slate-800 rounded-lg border border-slate-700 shadow-sm overflow-hidden">
+    <div class="px-4 py-5 sm:px-6 flex justify-between items-center bg-slate-800 border-b border-slate-700">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-white">Current Status</h3>
+        <p class="mt-1 max-w-2xl text-sm text-slate-400">Last updated <%= time_ago_in_words(@site.last_check.created_at) if @site.last_check %> ago.</p>
+      </div>
+      <div>
+          <% if @site.up? %>
+            <span class="inline-flex items-center px-4 py-2 rounded-md text-lg font-medium bg-emerald-900 text-emerald-100 border border-emerald-800">
+                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Operational
+            </span>
+          <% elsif @site.status == 'pending' %>
+              <span class="inline-flex items-center px-4 py-2 rounded-md text-lg font-medium bg-amber-900 text-amber-100 border border-amber-800">
+                Pending
+              </span>
+          <% else %>
+             <span class="inline-flex items-center px-4 py-2 rounded-md text-lg font-medium bg-rose-900 text-rose-100 border border-rose-800">
+                <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                Down
+             </span>
+          <% end %>
+      </div>
+    </div>
+    
+    <!-- Charts Section -->
+    <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+           <h4 class="text-sm font-medium text-slate-400 mb-4 uppercase tracking-wider">Response Time (Last 24h)</h4>
+           <%= line_chart @site.checks.last_24_hours.group_by_minute(:created_at).average(:response_time_ms), colors: ["#818cf8"], height: "200px", points: true, library: { scales: { x: { grid: { color: 'rgba(255, 255, 255, 0.05)' } }, y: { grid: { color: 'rgba(255, 255, 255, 0.05)' } } } } %>
+        </div>
+        <div>
+           <h4 class="text-sm font-medium text-slate-400 mb-4 uppercase tracking-wider">Uptime Distribution</h4>
+            <%= pie_chart @site.checks.group(:success).count.transform_keys { |k| k ? "Success" : "Failure" }, colors: ["#10b981", "#f43f5e"], height: "200px", donut: true %>
+        </div>
+    </div>
+  </div>
+
+  <!-- History Table -->
+  <div class="flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg border border-slate-700">
+          <table class="min-w-full divide-y divide-slate-700">
+            <thead class="bg-slate-800">
+              <tr>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-200 sm:pl-6">Time</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-200">Status Code</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-200">Response Time</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-200">Result</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50 bg-slate-900/50">
+              <% @checks.each do |check| %>
+                <tr class="hover:bg-slate-800/50 transition-colors">
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-slate-300 sm:pl-6">
+                    <%= check.created_at.strftime("%b %d, %H:%M:%S") %>
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-400">
+                    <span class="inline-flex rounded-full bg-slate-700 px-2 text-xs font-semibold leading-5 text-slate-300">
+                      <%= check.status_code %>
+                    </span>
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-400 font-mono">
+                    <%= check.response_time_ms %> ms
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-500">
+                    <% if check.success %>
+                      <span class="inline-flex items-center rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+                        Success
+                      </span>
+                    <% else %>
+                      <span class="inline-flex items-center rounded-full bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 text-xs font-medium text-rose-400">
+                        Failed
+                      </span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% if @checks.empty? %>
+              <div class="text-center py-12 text-sm text-slate-500 bg-slate-800/30">No checks specific to this site yet.</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<%= form_with(model: site, class: "space-y-6") do |form| %>
+  <% if site.errors.any? %>
+    <div class="rounded-lg bg-rose-500/10 p-4 border border-rose-500/20 mb-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-rose-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-rose-400"><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h3>
+          <div class="mt-2 text-sm text-rose-300">
+            <ul class="list-disc pl-5 space-y-1">
+              <% site.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, class: "block text-sm font-medium text-slate-300" %>
+    <div class="mt-1">
+      <%= form.text_field :name, class: "appearance-none block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm placeholder-slate-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-slate-700/50 text-white sm:text-sm", placeholder: "e.g. Production Application" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :url, "URL to Monitor", class: "block text-sm font-medium text-slate-300" %>
+    <div class="mt-1">
+      <%= form.text_field :url, class: "appearance-none block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm placeholder-slate-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-slate-700/50 text-white sm:text-sm", placeholder: "https://example.com" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :check_interval, "Check Interval (minutes)", class: "block text-sm font-medium text-slate-300" %>
+    <div class="mt-1">
+      <%= form.number_field :check_interval, class: "appearance-none block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm placeholder-slate-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-slate-700/50 text-white sm:text-sm", min: 1 %>
+    </div>
+  </div>
+
+  <div class="flex items-start">
+    <div class="flex items-center h-5">
+      <%= form.check_box :active, class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-slate-600 rounded bg-slate-700" %>
+    </div>
+    <div class="ml-3 text-sm">
+      <%= form.label :active, class: "font-medium text-slate-300" %>
+      <p class="text-slate-500">Enable or disable monitoring for this URL.</p>
+    </div>
+  </div>
+
+  <div class="pt-5 flex justify-end">
+    <%= link_to "Cancel", sites_path, class: "bg-slate-800 py-2 px-4 border border-slate-600 rounded-md shadow-sm text-sm font-medium text-slate-300 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-900" %>
+    <%= form.submit class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-slate-900 cursor-pointer" %>
+  </div>
+<% end %>

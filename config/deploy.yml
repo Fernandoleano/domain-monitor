@@ -2,12 +2,14 @@
 service: domain_monitor
 
 # Name of the container image (use your-user/app-name on external registries).
-image: domain_monitor
+# Name of the container image (use your-user/app-name on external registries).
+# REPLACE WITH YOUR REGISTRY IMAGE (e.g., fernandoleano/domain-monitor)
+image: <%= ENV['KAMAL_REGISTRY_IMAGE'] || 'fernandoleano/domain-monitor' %>
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - <%= ENV['DOMAIN_MONITOR_SERVER_IP'] || '192.168.0.1' %>
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -20,21 +22,19 @@ servers:
 #
 # Don't use this when deploying to multiple web servers (then you have to terminate SSL at your load balancer).
 #
-# proxy:
-#   ssl: true
-#   host: app.example.com
+proxy:
+  ssl: true
+  host: <%= ENV['DOMAIN_MONITOR_HOST'] || 'app.example.com' %>
 
 # Where you keep your container images.
 registry:
   # Alternatives: hub.docker.com / registry.digitalocean.com / ghcr.io / ...
-  server: localhost:5555
-
-  # Needed for authenticated registries.
-  # username: your-user
+  server: <%= ENV['KAMAL_REGISTRY_SERVER'] || 'hub.docker.com' %>
+  username: <%= ENV['KAMAL_REGISTRY_USERNAME'] || 'your-user' %>
 
   # Always use an access token rather than real password when possible.
-  # password:
-  #   - KAMAL_REGISTRY_PASSWORD
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
@@ -76,7 +76,6 @@ volumes:
 # version inside the asset_path.
 asset_path: /rails/public/assets
 
-
 # Configure the image builder.
 builder:
   arch: amd64
@@ -90,7 +89,6 @@ builder:
   # secrets:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
-
 # Use a different ssh user than root
 # ssh:
 #   user: app

@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+require 'io/console'
+
+def prompt(message, default: nil)
+  print "#{message} #{default ? "[#{default}] " : ""}: "
+  input = gets.chomp
+  input.empty? ? default : input
+end
+
+def prompt_secret(message)
+  print "#{message}: "
+  STDIN.noecho(&:gets).chomp.tap { puts }
+end
+
+puts "\n🚀 Domain Monitor Deployment Wizard\n"
+puts "=====================================\n\n"
+
+puts "This wizard will help you deploy your app using Kamal."
+puts "You need a Linux server (Ubuntu recommended) with SSH access.\n\n"
+
+# 1. Server Details
+server_ip = prompt("1. Server IP Address")
+if server_ip.nil? || server_ip.empty?
+  puts "❌ Server IP is required."
+  exit 1
+end
+
+domain = prompt("2. Domain Name", default: "monitor.example.com")
+
+# 2. Registry Details
+puts "\n--- Docker Registry Setup ---\n"
+registry_server = prompt("3. Registry Server", default: "hub.docker.com")
+registry_user = prompt("4. Registry Username")
+registry_image = prompt("5. Image Name", default: "#{registry_user}/domain-monitor")
+registry_password = prompt_secret("6. Registry Password/Token")
+
+# 3. Confirmation
+puts "\n--- Configuration Summary ---\n"
+puts "Server:   #{server_ip}"
+puts "Domain:   #{domain}"
+puts "Image:    #{registry_image}"
+puts "Registry: #{registry_server} (User: #{registry_user})"
+puts "-----------------------------"
+
+print "\nReady to deploy? (y/n): "
+if gets.chomp.downcase != 'y'
+  puts "Aborted."
+  exit 0
+end
+
+# 4. Execute
+env_vars = {
+  "DOMAIN_MONITOR_SERVER_IP" => server_ip,
+  "DOMAIN_MONITOR_HOST" => domain,
+  "KAMAL_REGISTRY_SERVER" => registry_server,
+  "KAMAL_REGISTRY_USERNAME" => registry_user,
+  "KAMAL_REGISTRY_IMAGE" => registry_image,
+  "KAMAL_REGISTRY_PASSWORD" => registry_password
+}
+
+puts "\n🔥 Launching Kamal Setup... (This may take a few minutes)\n\n"
+
+# We use exec to replace the current process with kamal
+exec(env_vars, "kamal", "setup")

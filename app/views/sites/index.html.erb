@@ -30,7 +30,7 @@
   <div class="bg-slate-800 rounded-lg border border-slate-700 shadow-sm p-6">
     <h3 class="text-lg leading-6 font-medium text-white mb-4">Response Time Trends (All Sites)</h3>
     <div class="h-64 chart-container text-slate-200">
-       <%= line_chart Check.last_24_hours.group_by_hour(:created_at).average(:response_time_ms), colors: ["#22d3ee"], points: false, height: "250px", library: { scales: { x: { grid: { color: 'rgba(255, 255, 255, 0.1)' } }, y: { grid: { color: 'rgba(255, 255, 255, 0.1)' } } } } %>
+       <%= line_chart Check.where(site: @sites).where("created_at > ?", 24.hours.ago).group_by_hour(:created_at).average(:response_time_ms), colors: ["#22d3ee"], points: true, height: "250px", library: { scales: { x: { grid: { color: 'rgba(255, 255, 255, 0.1)' } }, y: { grid: { color: 'rgba(255, 255, 255, 0.1)' } } } } %>
     </div>
   </div>
 

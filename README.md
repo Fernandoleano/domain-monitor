@@ -37,6 +37,7 @@
 - **Jobs**: ActiveJob (Async monitoring)
 - **Visuals**: Chartkick / Chart.js
 - **Logging**: Rollbar (Error Tracking)
+- **Analytics**: PostHog (User Tracking & Insights)
 
 ## 🚀 Getting Started
 

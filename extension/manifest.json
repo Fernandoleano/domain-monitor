@@ -7,11 +7,6 @@
   "host_permissions": [
     "https://domain-monitor-brbh.onrender.com/*"
   ],
-  "icons": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
-  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -24,5 +19,8 @@
       "16": "icon.png",
       "48": "icon.png",
       "128": "icon.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }

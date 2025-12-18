@@ -32,12 +32,17 @@
 ## 🛠️ Technology Stack
 
 - **Backend**: Ruby on Rails 8.1
-- **Database**: SQLite (Production-ready with WAL mode)
+- **Database**: PostgreSQL (Production) / SQLite (Dev)
 - **Frontend**: Tailwind CSS, Stimulus.js, Turbo
 - **Jobs**: ActiveJob (Async monitoring)
 - **Visuals**: Chartkick / Chart.js
+- **Logging**: Rollbar (Error Tracking)
 
 ## 🚀 Getting Started
+
+### Live Demo
+
+**[https://domain-monitor-brbh.onrender.com](https://domain-monitor-brbh.onrender.com)**
 
 ### Prerequisites
 
@@ -75,28 +80,17 @@
 
 ## 🚀 Deployment (Render)
 
-This app is configured for **Render.com**.
+This app is live on **Render.com**.
 
-### How to Deploy Updates
+### Browser Extension (Live)
 
-The deployment is **automated**. To update your live production app:
+The extension in this repo is pre-configured to work with the **Live Production** site.
 
-1.  Make your code changes.
-2.  Commit and Push to GitHub:
-    ```bash
-    git add .
-    git commit -m "New feature"
-    git push origin main
-    ```
-3.  Render will automatically detect the push, run the build script, and deploy the new version.
-
-### Browser Extension (Production)
-
-The extension in this repo is designed to work with your live site.
-
-1.  Use the `domain-monitor-extension-prod.zip` file.
-2.  Load it into Chrome (`chrome://extensions`).
-3.  It will automatically connect to your Render URL.
+1.  Go to `chrome://extensions` in your browser.
+2.  Enable **Developer Mode** (top right).
+3.  Click **Load Unpacked**.
+4.  Select the `extension/` folder in this repository.
+5.  Pin the extension and check any site! It will save data directly to your production account.
 
 ## 🧪 How It Works
 

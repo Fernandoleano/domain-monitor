@@ -13,6 +13,6 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:full_name, :email_address, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:full_name, :email_address, :password, :password_confirmation, :avatar).delete_if { |k, v| k.include?("password") && v.blank? }
   end
 end

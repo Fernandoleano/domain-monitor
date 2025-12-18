@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_17_234000) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_18_022035) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "message_checksum", null: false
@@ -111,6 +111,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_17_234000) do
     t.index ["channel"], name: "index_solid_cable_messages_on_channel"
     t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
     t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
+  end
+
+  create_table "solid_cache_entries", force: :cascade do |t|
+    t.integer "byte_size", limit: 4, null: false
+    t.datetime "created_at", null: false
+    t.binary "key", limit: 1024, null: false
+    t.integer "key_hash", limit: 8, null: false
+    t.binary "value", limit: 536870912, null: false
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -235,6 +245,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_17_234000) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "avatar_content_type"
+    t.binary "avatar_data"
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "full_name"

@@ -31,8 +31,8 @@
          data-controller="video" 
          data-action="click->video#play">
       
-      <!-- Placeholder -->
-      <div data-video-target="placeholder" class="absolute inset-0 w-full h-full">
+      <!-- Placeholder: Visible by default (no hidden class) -->
+      <div data-video-target="placeholder" class="absolute inset-0 w-full h-full text-center">
         <img src="https://raw.githubusercontent.com/Fernandoleano/domain-monitor/main/docs/assets/dashboard.png" alt="Dashboard Preview" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform hover:bg-indigo-500">
@@ -41,9 +41,9 @@
         </div>
       </div>
 
-      <!-- Video Container (Initially Hidden) -->
-      <div data-video-target="frame" class="hidden absolute inset-0 w-full h-full bg-black">
-        <!-- Iframe injected here -->
+      <!-- Video Framework: Hidded by default -->
+      <div data-video-target="frame" class="hidden absolute inset-0 w-full h-full bg-black z-50">
+        <!-- JS will inject iframe here -->
       </div>
     </div>
   </div>

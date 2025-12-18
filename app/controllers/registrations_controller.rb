@@ -1,6 +1,7 @@
 class RegistrationsController < ApplicationController
   allow_unauthenticated_access
   before_action { redirect_to root_path if authenticated? }
+  layout "marketing"
 
   def new
     @user = User.new

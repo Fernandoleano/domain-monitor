@@ -27,13 +27,23 @@
 <!-- Video / Demo Section -->
 <div id="how-it-works" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-24">
   <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden ring-1 ring-white/10">
-    <div class="aspect-w-16 aspect-h-9 bg-slate-900 flex items-center justify-center relative group cursor-pointer">
-      <!-- Placeholder for Video/Dashboard Image -->
-      <img src="https://raw.githubusercontent.com/Fernandoleano/domain-monitor/main/docs/assets/dashboard.png" alt="Dashboard Preview" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-      <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-          <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <div class="aspect-w-16 aspect-h-9 bg-slate-900 flex items-center justify-center relative group cursor-pointer" 
+         data-controller="video" 
+         data-action="click->video#play">
+      
+      <!-- Placeholder -->
+      <div data-video-target="placeholder" class="absolute inset-0 w-full h-full">
+        <img src="https://raw.githubusercontent.com/Fernandoleano/domain-monitor/main/docs/assets/dashboard.png" alt="Dashboard Preview" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform hover:bg-indigo-500">
+            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
+      </div>
+
+      <!-- Video Container (Initially Hidden) -->
+      <div data-video-target="frame" class="hidden absolute inset-0 w-full h-full bg-black">
+        <!-- Iframe injected here -->
       </div>
     </div>
   </div>

@@ -29,16 +29,6 @@
           api_host: "<%= ENV.fetch('POSTHOG_HOST', 'https://us.i.posthog.com') %>",
           person_profiles: 'identified_only'
         });
-
-        <% if Current.user %>
-          console.log("PostHog Identifying User: <%= Current.user.id %>");
-          posthog.identify('<%= Current.user.id %>', {
-            $email: '<%= Current.user.email_address %>',
-            $name: '<%= Current.user.full_name %>'
-          });
-        <% else %>
-          console.log("PostHog: No Current.user found");
-        <% end %>
       }
     </script>
   </head>
@@ -52,5 +42,18 @@
         <%= yield %>
       </div>
     </main>
+    <script>
+      <% if Current.user %>
+        console.log("PostHog Identifying User (Body): <%= Current.user.id %>");
+        if (window.posthog) {
+          posthog.identify('<%= Current.user.id %>', {
+            $email: '<%= Current.user.email_address %>',
+            $name: '<%= Current.user.full_name %>'
+          });
+        }
+      <% else %>
+        console.log("PostHog: No Current.user found (Body)");
+      <% end %>
+    </script>
   </body>
 </html>

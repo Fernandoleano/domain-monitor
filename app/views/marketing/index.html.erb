@@ -1,1 +1,84 @@
-<h1>Domain Monitor Marketing</h1>
+<div class="relative pt-32 pb-20 sm:pt-40 sm:pb-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <h1 class="text-5xl sm:text-7xl font-extrabold text-white tracking-tight mb-8">
+      Monitor your infrastructure <br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">without the noise.</span>
+    </h1>
+    <p class="mt-4 text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+      Professional-grade uptime monitoring with rich telemetry, instant alerts, and a beautiful dark-mode dashboard.
+    </p>
+    <div class="flex justify-center gap-4">
+      <a href="<%= new_registration_path %>" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-lg shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all transform hover:-translate-y-1">
+        Start Monitoring Free
+      </a>
+      <a href="#how-it-works" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold text-lg border border-slate-700 transition-all">
+        Learn More
+      </a>
+    </div>
+  </div>
+  
+  <!-- Background Glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-20">
+    <div class="absolute top-[20%] left-[20%] w-96 h-96 bg-indigo-500 rounded-full blur-3xl mix-blend-screen"></div>
+    <div class="absolute top-[30%] right-[20%] w-96 h-96 bg-cyan-500 rounded-full blur-3xl mix-blend-screen"></div>
+  </div>
+</div>
+
+<!-- Video / Demo Section -->
+<div id="how-it-works" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-24">
+  <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden ring-1 ring-white/10">
+    <div class="aspect-w-16 aspect-h-9 bg-slate-900 flex items-center justify-center relative group cursor-pointer">
+      <!-- Placeholder for Video/Dashboard Image -->
+      <img src="https://raw.githubusercontent.com/Fernandoleano/domain-monitor/main/docs/assets/dashboard.png" alt="Dashboard Preview" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-20 h-20 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+          <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Grid -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+  <div class="grid md:grid-cols-3 gap-12">
+    <!-- Feature 1 -->
+    <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700/50 hover:bg-slate-800 hover:border-indigo-500/50 transition-all group">
+      <div class="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-white mb-4">Real-Time Alerts</h3>
+      <p class="text-slate-400 leading-relaxed">
+        Get notified instantly when your site goes down via Email or In-App alerts. We monitor response times and status codes continuously.
+      </p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700/50 hover:bg-slate-800 hover:border-cyan-500/50 transition-all group">
+      <div class="w-14 h-14 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-white mb-4">Detailed Analytics</h3>
+      <p class="text-slate-400 leading-relaxed">
+        Visualize latency trends with interactive charts. Track uptime percentages and performance metrics over time.
+      </p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700/50 hover:bg-slate-800 hover:border-emerald-500/50 transition-all group">
+      <div class="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-white mb-4">False Positive Protection</h3>
+      <p class="text-slate-400 leading-relaxed">
+        Our smart background jobs mimic real users to prevent 403 blocks from sites like eBay or Medium.
+      </p>
+    </div>
+  </div>
+</div>

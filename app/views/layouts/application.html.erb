@@ -32,8 +32,8 @@
 
         <% if Current.user %>
           posthog.identify('<%= Current.user.id %>', {
-            email: '<%= Current.user.email_address %>',
-            name: '<%= Current.user.full_name %>'
+            $email: '<%= Current.user.email_address %>',
+            $name: '<%= Current.user.full_name %>'
           });
         <% end %>
       }
